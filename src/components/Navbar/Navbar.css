@@ -1,0 +1,49 @@
+.navbar {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background-color: var(--mint);
+    height: 60px;
+}
+
+.navbarContainer {
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbarContainer > ul {
+    list-style: none;
+}
+
+.brandIcon {
+    font-size: 2rem;
+}
+
+.navList {
+    display: flex;
+    width: 50%;
+    justify-content: space-evenly;
+}
+
+.navbarItem {
+    color: var(--black);
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: 500;
+    transition: 50ms ease-in;
+    padding: 0 20px;
+}
+
+.navbarItem:hover {
+    color: var(--salmon);
+    transition: 50ms ease-out;
+}
+
+.navbarItem.active {
+    color: var(--salmon);
+}
+

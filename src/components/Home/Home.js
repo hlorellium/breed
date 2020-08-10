@@ -1,11 +1,14 @@
 import React from "react";
-import app from "../../base";
+
+import Navbar from "../Navbar/Navbar";
 
 const Home = () => {
     return (
         <>
-            <h1>Home</h1>
-            <button onClick={() => app.auth().signOut()}>Sign Out</button>
+            <Navbar />
+            <div className="home container">
+                <h1>Home</h1>
+            </div>
         </>
     );
 };

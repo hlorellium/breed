@@ -1,15 +1,19 @@
 import React, { useCallback, useContext } from "react";
-import firebase from "../../base";
-import { AuthContext } from "../Auth";
+import app from "../../base";
+import { useSelector } from "react-redux";
 import { withRouter, Redirect } from "react-router";
 
+    
 const Login = ({ history }) => {
+    
+    const currentUser = useSelector((state) => state.user.currentUser);
+
     const handleLogin = useCallback(
-        async event => {
+        async (event) => {
             event.preventDefault();
             const { email, password } = event.target.elements;
             try {
-                await firebase
+                await app
                     .auth()
                     .signInWithEmailAndPassword(email.value, password.value);
                 history.push("/");
@@ -20,7 +24,7 @@ const Login = ({ history }) => {
         [history]
     );
 
-    const { currentUser } = useContext(AuthContext);
+    console.log(currentUser);
 
     if (currentUser) {
         return <Redirect to="/" />;

@@ -1,6 +1,6 @@
 import React, { useCallback } from "react";
 import { withRouter } from "react-router";
-import firebase from "../../base";
+import app from "../../base";
 
 const SignUp = ({ history }) => {
     const handleSignUp = useCallback(
@@ -8,7 +8,7 @@ const SignUp = ({ history }) => {
             event.preventDefault();
             const { email, password } = event.target.elements;
             try {
-                await firebase
+                await app
                     .auth()
                     .createUserWithEmailAndPassword(
                         email.value,

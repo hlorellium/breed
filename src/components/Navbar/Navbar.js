@@ -1,13 +1,13 @@
-import React, { useContext } from "react";
+import React from "react";
 import { NavLink } from "react-router-dom";
+import { useSelector } from 'react-redux'
 
 import firebase from "../../base";
 import Collapse from "../Collapse/Collapse";
 import "./Navbar.css";
-import { AuthContext } from "../Auth";
 
 const Navbar = () => {
-    const { currentUser } = useContext(AuthContext);
+    const currentUser = useSelector((state) => state.user.currentUser);
 
     return (
         <div className="navbar">
@@ -21,7 +21,7 @@ const Navbar = () => {
                 </ul>
                 <ul className="navList">
                     <li>    
-                        <NavLink to="/" className="navbarItem">
+                        <NavLink to="/home" className="navbarItem">
                             Home
                         </NavLink>
                     </li>

@@ -1,15 +1,16 @@
-import React, { useContext } from "react";
-import { AuthContext } from "./Auth";
+import React from "react";
+import { useSelector } from "react-redux";
 import { Redirect } from "react-router";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import {   BrowserRouter as Router, Route } from "react-router-dom";
+import { withRouter } from "react-router";
 
 const PrivateRoute = ({ component: RouteComponent, ...rest }) => {
-    const { currentUser } = useContext(AuthContext);
-
+    const currentUser = useSelector((state) => state.user.currentUser);
+    console.log(!!currentUser);
     return (
         <Route
             {...rest}
-            render={routeProps =>
+            render={(routeProps) =>
                 !!currentUser ? (
                     <RouteComponent {...routeProps} />
                 ) : (
@@ -20,4 +21,4 @@ const PrivateRoute = ({ component: RouteComponent, ...rest }) => {
     );
 };
 
-export default PrivateRoute;
+export default withRouter(PrivateRoute);

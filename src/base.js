@@ -13,6 +13,8 @@ const app = firebase.initializeApp({
   measurementId: process.env.REACT_APP_MEASURMENT_ID,
 });
 
+export const currentTimestamp = firebase.firestore.Timestamp.now();
+
 export const db = firebase.firestore();
 
 export default app;

@@ -4,44 +4,9 @@ import app from "../../base";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 
 const SignUp = ({ history }) => {
-    const handleSignUp = useCallback(
-        async (event, { setSubmitting }) => {
-            event.preventDefault();
-            const { email, password } = event.target.elements;
-            try {
-                await app
-                    .auth()
-                    .createUserWithEmailAndPassword(
-                        email.value,
-                        password.value
-                    );
-                history.push("/");
-            } catch (error) {
-                alert(error);
-            }
-            setSubmitting(false);
-        },
-        [history]
-    );
-
     return (
         <div>
             <h1>Sign Up</h1>
-            {/* <form onSubmit={handleSignUp}>
-                <label>
-                    Email
-                    <input type="email" placeholder="Email" name="email" />
-                </label>
-                <label>
-                    Password
-                    <input
-                        type="password"
-                        placeholder="Password"
-                        name="password"
-                    />
-                </label>
-                <button type="submit">Sign Up</button>
-            </form> */}
             <Formik
                 initialValues={{ email: "", password: "" }}
                 validate={(values) => {
@@ -57,7 +22,19 @@ const SignUp = ({ history }) => {
                     }
                     return errors;
                 }}
-                onSubmit={handleSignUp}
+                onSubmit={async (values) => {
+                    try {
+                        await app
+                            .auth()
+                            .createUserWithEmailAndPassword(
+                                values.email,
+                                values.password
+                            );
+                    } catch (error) {
+                        alert(error);
+                    }
+                    history.push("/home");
+                }}
             >
                 {({ isSubmitting }) => (
                     <Form>
@@ -66,7 +43,7 @@ const SignUp = ({ history }) => {
                         <Field type="password" name="password" />
                         <ErrorMessage name="password" component="div" />
                         <button type="submit" disabled={isSubmitting}>
-                            Submit
+                            Sign In
                         </button>
                     </Form>
                 )}

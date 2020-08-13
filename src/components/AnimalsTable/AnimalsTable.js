@@ -16,9 +16,12 @@ const AnimalsTable = ({ getAnimals, animal, currentUser }) => {
         () =>
             animals.map((animal) => ({
                 col1: animal.name,
-                col2: animal.parents.father,
-                col3: animal.parents.mother,
-                col4: animal.parents.bday,
+                col2: animal.gender,
+                col3: animal.parents.father,
+                col4: animal.parents.mother,
+                col5: new Date(animal.bday.seconds || 0 * 1000)
+                    .toISOString()
+                    .substr(0, 10),
             })),
         [animals]
     );
@@ -30,16 +33,21 @@ const AnimalsTable = ({ getAnimals, animal, currentUser }) => {
                 accessor: "col1",
             },
             {
-                Header: "Father",
+                Header: "Gender",
                 accessor: "col2",
             },
+
             {
-                Header: "Mother",
+                Header: "Father",
                 accessor: "col3",
             },
             {
-                Header: "Birthday",
+                Header: "Mother",
                 accessor: "col4",
+            },
+            {
+                Header: "Birthday",
+                accessor: "col5",
             },
         ],
         []
@@ -57,7 +65,7 @@ const AnimalsTable = ({ getAnimals, animal, currentUser }) => {
     return (
         <>
             <Navbar />
-            <div className="container">
+            <div className="container animalsTableContainer">
                 <table {...getTableProps()} className="animalsTable">
                     <thead>
                         {

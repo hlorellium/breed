@@ -2,6 +2,10 @@
     width: 100%;
 }
 
+.animalsTableContainer {
+    overflow-x:auto;
+}
+
 .animalsTable th,
 td {
     padding: 10px;

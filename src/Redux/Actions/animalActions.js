@@ -1,4 +1,4 @@
-import { db } from "../../base";
+import { db, currentTimestamp } from "../../base";
 
 import {
     ADD_ANIMAL,
@@ -11,9 +11,18 @@ import { returnErrors } from "./errorActions";
 
 const animalsRef = db.collection("animals");
 
-export const addAnimal = (animal) => (dispatch) => {
+export const addAnimal = ({ name, gender, father, mother, bday, uid }) => (
+    dispatch
+) => {
     animalsRef
-        .add()
+        .add({
+            name,
+            gender,
+            parents: { father, mother },
+            bday,
+            uid,
+            createdAt: currentTimestamp,
+        })
         .then((res) =>
             dispatch({
                 type: ADD_ANIMAL,
@@ -25,7 +34,7 @@ export const addAnimal = (animal) => (dispatch) => {
         );
 };
 
-export const getAnimals = ( uid ) => (dispatch) => {
+export const getAnimals = (uid) => (dispatch) => {
     dispatch(setAnimalsLoading());
     animalsRef
         .where("uid", "==", uid || null)

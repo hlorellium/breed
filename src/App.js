@@ -10,8 +10,9 @@ import { setCurrentUser } from "./Redux/Actions/userActions";
 
 import app from "./base";
 import "./App.css";
-import  AnimalsTable  from "./components/Animals/AnimalsTable";
+import  AnimalsTable  from "./components/AnimalsTable/AnimalsTable";
 import Profile from "./components/Profile/Profile";
+import AnimalForm from "./components/AnimalForm/AnimalForm";
 
 const App = ({ setCurrentUser }) => {
     useEffect(() => {
@@ -22,6 +23,7 @@ const App = ({ setCurrentUser }) => {
         <Router>
             <PrivateRoute exact path="/home" component={Home} />
             <PrivateRoute exact path="/animals" component={AnimalsTable} />
+            <PrivateRoute exact path="/addAnimal" component={AnimalForm} />
             <PrivateRoute exact path="/profile" component={Profile} />
             <Route exact path="/Login" component={Login} />
             <Route exact path="/SignUp" component={SignUp} />

@@ -26,9 +26,12 @@ const Navbar = () => {
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink to="/animals" className="navbarItem">
-                            Animals
+                    <Collapse header="Animals">
+                    <NavLink to="/animals" className="navbarItem">
+                            All animals
                         </NavLink>
+                       </Collapse>
+  
                     </li>
                     <li>
                         <Collapse header={currentUser.email}>

@@ -1,12 +1,19 @@
-import React, { useCallback } from "react";
-import { withRouter } from "react-router";
+import React from "react";
 import app from "../../base";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { useSelector } from "react-redux";
+import { withRouter, Redirect } from "react-router";
+import { Form, Field, ErrorMessage, Formik } from "formik";
 
-const SignUp = ({ history }) => {
+const Login = ({ history }) => {
+    const currentUser = useSelector((state) => state.user.currentUser);
+
+    if (currentUser) {
+        return <Redirect to="/" />;
+    }
+
     return (
         <div>
-            <h1>Sign Up</h1>
+            <h1>Log In</h1>
             <Formik
                 initialValues={{ email: "", password: "" }}
                 validate={(values) => {
@@ -26,7 +33,7 @@ const SignUp = ({ history }) => {
                     try {
                         await app
                             .auth()
-                            .createUserWithEmailAndPassword(
+                            .signInWithEmailAndPassword(
                                 values.email,
                                 values.password
                             );
@@ -43,7 +50,7 @@ const SignUp = ({ history }) => {
                         <Field type="password" name="password" />
                         <ErrorMessage name="password" component="div" />
                         <button type="submit" disabled={isSubmitting}>
-                            Sign In
+                            Log in
                         </button>
                     </Form>
                 )}
@@ -52,4 +59,4 @@ const SignUp = ({ history }) => {
     );
 };
 
-export default withRouter(SignUp);
+export default withRouter(Login);

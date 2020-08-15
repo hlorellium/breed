@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo } from "react";
 import { connect } from "react-redux";
 import { getAnimals } from "../../Redux/Actions/animalActions";
-import Navbar from "../Navbar/Navbar";
+import Navbar from "../Navbar";
 import { useTable } from "react-table";
 import "./AnimalsTable.css";
 
@@ -12,6 +12,8 @@ const AnimalsTable = ({ getAnimals, animal, currentUser }) => {
 
     const { animals } = animal;
 
+    const { loading } = animal;
+
     const data = useMemo(
         () =>
             animals.map((animal) => ({
@@ -19,9 +21,12 @@ const AnimalsTable = ({ getAnimals, animal, currentUser }) => {
                 col2: animal.gender,
                 col3: animal.parents.father,
                 col4: animal.parents.mother,
-                col5: new Date(animal.bday.seconds || 0 * 1000)
-                    .toISOString()
-                    .substr(0, 10),
+                col5:
+                    animal.bday.seconds >= 0
+                        ? new Date(animal.bday.seconds * 1000)
+                              .toISOString()
+                              .substr(0, 10)
+                        : animal.bday,
             })),
         [animals]
     );

@@ -21,9 +21,3 @@ html, body {
     color: var(--black);
 }
 
-.container {
-    display: flex;
-    flex-grow: 1;
-    max-width: 1200px;
-    margin: 0 auto;
-}

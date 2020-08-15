@@ -5,7 +5,14 @@
 .animalsTableContainer {
     overflow-x:auto;
 }
-
+.loadingTable {
+    background-color: #cfcfcf;
+}
+.placeholder {
+    width: 100%;
+    border-radius: 10px;
+    background: #fcfcfc;
+}
 .animalsTable th,
 td {
     padding: 10px;

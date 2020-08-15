@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import Navbar from '../Navbar/Navbar'
+import Navbar from './Navbar'
 
 const Profile = () => {
     return (

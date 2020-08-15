@@ -1,15 +1,15 @@
-import { db, currentTimestamp } from "../../base";
+import { db, currentTimestamp } from '../../base';
 
 import {
     ADD_ANIMAL,
     ANIMALS_LOADING,
     DELETE_ANIMAL,
     GET_ANIMALS,
-} from "./types";
+} from './types';
 
-import { returnErrors } from "./errorActions";
+import { returnErrors } from './errorActions';
 
-const animalsRef = db.collection("animals");
+const animalsRef = db.collection('animals');
 
 export const addAnimal = ({ name, gender, father, mother, bday, uid }) => (
     dispatch
@@ -23,11 +23,16 @@ export const addAnimal = ({ name, gender, father, mother, bday, uid }) => (
             uid,
             createdAt: currentTimestamp,
         })
-        .then((res) =>
-            dispatch({
-                type: ADD_ANIMAL,
-                payload: res.data,
-            })
+        .then((docRef) =>
+            animalsRef
+                .doc(docRef.id)
+                .get()
+                .then((doc) => {
+                    dispatch({
+                        type: ADD_ANIMAL,
+                        payload: doc.data(),
+                    });
+                })
         )
         .catch((err) =>
             dispatch(returnErrors(err.response.data, err.response.status))
@@ -37,7 +42,7 @@ export const addAnimal = ({ name, gender, father, mother, bday, uid }) => (
 export const getAnimals = (uid) => (dispatch) => {
     dispatch(setAnimalsLoading());
     animalsRef
-        .where("uid", "==", uid || null)
+        .where('uid', '==', uid || null)
         .get()
         .then((querySnapshot) => {
             const animals = querySnapshot.docs.map((doc) => doc.data());

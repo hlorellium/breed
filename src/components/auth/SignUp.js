@@ -1,37 +1,12 @@
-import React, { useCallback, useContext } from "react";
+import React from "react";
+import { withRouter } from "react-router";
 import app from "../../base";
-import { useSelector } from "react-redux";
-import { withRouter, Redirect } from "react-router";
-import { Form, Field, ErrorMessage, Formik } from "formik";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 
-const Login = ({ history }) => {
-    const currentUser = useSelector((state) => state.user.currentUser);
-
-    const handleLogin = useCallback(
-        async (event) => {
-            event.preventDefault();
-            const { email, password } = event.target.elements;
-            try {
-                await app
-                    .auth()
-                    .signInWithEmailAndPassword(email.value, password.value);
-                history.push("/");
-            } catch (error) {
-                alert(error);
-            }
-        },
-        [history]
-    );
-
-    console.log(currentUser);
-
-    if (currentUser) {
-        return <Redirect to="/" />;
-    }
-
+const SignUp = ({ history }) => {
     return (
         <div>
-            <h1>Log In</h1>
+            <h1>Sign Up</h1>
             <Formik
                 initialValues={{ email: "", password: "" }}
                 validate={(values) => {
@@ -51,7 +26,7 @@ const Login = ({ history }) => {
                     try {
                         await app
                             .auth()
-                            .signInWithEmailAndPassword(
+                            .createUserWithEmailAndPassword(
                                 values.email,
                                 values.password
                             );
@@ -68,7 +43,7 @@ const Login = ({ history }) => {
                         <Field type="password" name="password" />
                         <ErrorMessage name="password" component="div" />
                         <button type="submit" disabled={isSubmitting}>
-                            Log in
+                            Sign In
                         </button>
                     </Form>
                 )}
@@ -77,4 +52,4 @@ const Login = ({ history }) => {
     );
 };
 
-export default withRouter(Login);
+export default withRouter(SignUp);

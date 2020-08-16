@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import Home from './components/Home';
 import Login from './components/auth/Login';
 import SignUp from './components/auth/SignUp';
-import PrivateRoute from './components/PrivateRoute';
+import PrivateRoute from './components/auth/PrivateRoute';
 import { setCurrentUser } from './Redux/Actions/userActions';
 
 import app from './base';

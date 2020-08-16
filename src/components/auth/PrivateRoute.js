@@ -6,7 +6,6 @@ import { withRouter } from "react-router";
 
 const PrivateRoute = ({ component: RouteComponent, ...rest }) => {
     const currentUser = useSelector((state) => state.user.currentUser);
-    console.log(!!currentUser);
     return (
         <Route
             {...rest}

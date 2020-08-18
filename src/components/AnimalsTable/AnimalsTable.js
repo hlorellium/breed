@@ -571,9 +571,14 @@ const AnimalsTable = ({ getAnimals, animal, currentUser }) => {
     const updateData = (rowIndex, columnId, value) => {
         // We also turn on the flag to not reset the page
         skipResetRef.current = true;
+        // console.table( animals)
         setData((old) =>
             old.map((row, index) => {
                 if (index === rowIndex) {
+                    console.log({
+                        ...row,
+                        [columnId]: value,
+                    })
                     return {
                         ...row,
                         [columnId]: value,

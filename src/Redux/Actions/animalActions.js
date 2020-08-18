@@ -45,7 +45,15 @@ export const getAnimals = (uid) => (dispatch) => {
         .where('uid', '==', uid || null)
         .get()
         .then((querySnapshot) => {
-            const animals = querySnapshot.docs.map((doc) => doc.data());
+            const animals = querySnapshot.docs.map((doc) => {
+                const animalId = doc.id;
+                const animalData = doc.data();
+                return {
+                    animalId,
+                    ...animalData,
+                };
+            });
+
             dispatch({
                 type: GET_ANIMALS,
                 payload: animals,
@@ -56,6 +64,25 @@ export const getAnimals = (uid) => (dispatch) => {
         );
 };
 
+export const updateAnimal = (id) => (dispatch) => {
+    animalsRef
+        .doc(id)
+        .update({})
+        .then((docRef) =>
+            animalsRef
+                .doc(docRef.id)
+                .get()
+                .then((doc) => {
+                    dispatch({
+                        type: ADD_ANIMAL,
+                        payload: doc.data(),
+                    });
+                })
+        )
+        .catch((err) =>
+            dispatch(returnErrors(err.response.data, err.response.status))
+        );
+};
 // export const deleteAnimal = (id) => (dispatch) => {
 //     axios
 //         .delete(`/api/animals/${id}`)

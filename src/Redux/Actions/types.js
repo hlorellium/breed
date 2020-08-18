@@ -1,6 +1,7 @@
 export const ADD_ANIMAL = 'ADD_ANIMAL';
 export const GET_ANIMALS = 'GET_ANIMALS';
 export const DELETE_ANIMAL = 'DELETE_ANIMAL';
+export const UPDATE_ANIMAL = 'UPDATE_ANIMAL';
 export const ANIMALS_LOADING = 'ANIMALS_LOADING';
 export const GET_ERRORS = 'GET_ERRORS';
 export const CLEAR_ERRORS = 'CLEAR_ERRORS';
